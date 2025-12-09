@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head-content(title='Blog')}">
+    <title>Blog</title>
+</head>
+
+<body>
+<header th:replace="~{fragments :: header}"></header>
+
+<main>
+    <div style="margin-bottom: 2rem;">
+        <a href="/" style="text-decoration: none; color: #666; font-size: 0.9rem;">&larr; Back to Home</a>
+    </div>
+
+    <form action="/search" method="get" class="search-form" style="margin-bottom: 2rem; display: flex; gap: 10px;">
+        <input type="text" name="q" class="search-input" placeholder="Search posts..." th:value="${query}"
+               style="flex-grow: 1; padding: 10px; font-size: 1rem; border: 1px solid #ddd; border-radius: 5px; font-family: inherit;">
+        <button type="submit" class="search-button"
+                style="padding: 10px 20px; font-size: 1rem; background: #eee; border: 1px solid #ccc; border-radius: 5px; cursor: pointer; color: #333; font-weight: bold;">
+            Search
+        </button>
+    </form>
+
+    <h3 th:if="${query != null}">Search results for "<span th:text="${query}"></span>"</h3>
+    <h3 th:if="${tagName != null}">Posts tagged #<span th:text="${tagName}"></span></h3>
+    <h3 th:if="${query == null and tagName == null}">Latest Posts</h3>
+
+    <ul>
+        <li th:each="post : ${posts}" style="margin-bottom: 1.5rem;">
+                <span class="post-date">
+                    <span th:text="${#temporals.format(post.createdAt, 'dd MMM, yyyy')}">Date</span>
+                    &bull;
+                    <span th:text="${post.readingTime}">2 min read</span>
+                </span>
+            &raquo;
+            <a th:href="@{'/' + ${post.slug}}" th:text="${post.title}" style="font-weight: bold; font-size: 1.1rem;">
+                Post Title
+            </a>
+
+            <div th:if="${!post.tags.empty}" style="margin-top: 4px; font-size: 0.85rem;">
+                    <span th:each="tag : ${post.tags}" style="margin-right: 8px;">
+                        <a th:href="@{'/tag/' + ${tag.name}}" style="color: #888; text-decoration: none;">
+                            #<span th:text="${tag.name}">tag</span>
+                        </a>
+                    </span>
+            </div>
+        </li>
+    </ul>
+
+    <p th:if="${posts.empty}" style="color: #666; margin-top: 2rem; text-align: center;">
+        No posts found.
+    </p>
+
+    <p th:if="${tagName != null or query != null}" style="margin-top: 2rem; text-align: center;">
+        <a href="/blog"
+           style="background: #f4f4f4; padding: 8px 12px; border-radius: 4px; text-decoration: none; color: #333;">
+            View all posts
+        </a>
+    </p>
+
+    <div th:if="${totalPages != null and totalPages > 1}"
+         style="display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 1rem; border-top: 1px dashed #eee;">
+
+        <div>
+            <a th:if="${currentPage > 0}"
+               th:href="@{/blog(page=${currentPage - 1})}"
+               style="text-decoration: none; color: #333; font-weight: bold;">
+                &larr; Newer Posts
+            </a>
+            <span th:if="${currentPage == 0}" style="color: #ccc;">&larr; Newer Posts</span>
+        </div>
+
+        <div style="color: #888; font-size: 0.9rem;">
+            Page <span th:text="${currentPage + 1}">1</span> of <span th:text="${totalPages}">1</span>
+        </div>
+
+        <div>
+            <a th:if="${currentPage < totalPages - 1}"
+               th:href="@{/blog(page=${currentPage + 1})}"
+               style="text-decoration: none; color: #333; font-weight: bold;">
+                Older Posts &rarr;
+            </a>
+            <span th:if="${currentPage == totalPages - 1}" style="color: #ccc;">Older Posts &rarr;</span>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

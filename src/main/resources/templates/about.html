@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head-content(title='About')}">
+    <title>About</title>
+</head>
+
+<body>
+<header th:replace="~{fragments :: header}"></header>
+
+<main>
+    <div style="margin-bottom: 2rem;">
+        <a href="/" style="text-decoration: none; color: #666; font-size: 0.9rem;">&larr; Back to Home</a>
+    </div>
+
+    <h1>How this site is built</h1>
+
+    <p>This website is a custom-built, server-side rendered application designed to mimic the minimalist philosophy of
+        <a href="https://bearblog.dev">Bear Blog</a>. It prioritizes speed, zero JavaScript on the client side, and
+        simple HTML.</p>
+
+    <h3>The Stack</h3>
+    <p>The application is a monolith deployed as a single JAR file.</p>
+
+    <ul>
+        <li><strong>Backend Framework:</strong> Spring Boot 4</li>
+        <li><strong>Database:</strong> PostgreSQL</li>
+        <li><strong>Template Engine:</strong> Thymeleaf (Server-side HTML rendering)</li>
+        <li><strong>Markdown Parser:</strong> CommonMark (Atlassian) for converting posts to HTML</li>
+        <li><strong>Security:</strong> Spring Security (BCrypt & Form Login)</li>
+    </ul>
+
+    <h3>The Frontend</h3>
+    <ul>
+        <li><strong>CSS:</strong> Water.css (Classless stylesheet)</li>
+        <li><strong>JavaScript:</strong> None (0kb bundle size)</li>
+        <li><strong>Fonts:</strong> System fonts only (San Francisco, Segoe UI, Roboto)</li>
+    </ul>
+
+    <hr>
+
+    <p><small><em>The source code follows the "Entity-Service-Controller" pattern without DTOs to maintain codebase
+        simplicity.</em></small></p>
+</main>
+
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

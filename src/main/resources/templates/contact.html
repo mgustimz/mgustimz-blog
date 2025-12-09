@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head-content(title='Contact')}">
+    <title>Contact</title>
+</head>
+
+<body>
+<header th:replace="~{fragments :: header}"></header>
+
+<main>
+    <div style="margin-bottom: 2rem;">
+        <a href="/" style="text-decoration: none; color: #666; font-size: 0.9rem;">&larr; Back to Home</a>
+    </div>
+
+    <h1>Contact Me</h1>
+    <p>I am always open to discussing new projects, creative ideas, or opportunities to be part of your visions.</p>
+
+    <hr>
+
+    <h3>Email</h3>
+    <p>The best way to reach me is via email:</p>
+    <p>
+        <a href="mailto:mgustimz@gmail.com" style="font-size: 1.2rem; font-weight: bold;">mgustimz@gmail.com</a>
+    </p>
+
+    <h3>Socials</h3>
+    <ul>
+        <li><a href="#">Twitter / X</a></li>
+        <li><a href="#">GitHub</a></li>
+        <li><a href="#">LinkedIn</a></li>
+    </ul>
+</main>
+
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

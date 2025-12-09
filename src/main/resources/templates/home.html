@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head-content(title='Home')}">
+    <title>Home</title>
+</head>
+
+<body>
+<header th:replace="~{fragments :: header}"></header>
+
+<main>
+    <h1>Welcome.</h1>
+    <p>This is my digital garden. I write about code, minimalism, and building things with Java.</p>
+
+    <div style="margin-top: 2rem;">
+        <h3>What I'm thinking about:</h3>
+        <ul>
+            <li>Simplicity in Software Engineering</li>
+            <li>Server-side Rendering</li>
+            <li>The joy of small databases</li>
+        </ul>
+    </div>
+
+    <p style="margin-top: 3rem;">
+        <a href="/blog"
+           style="background: #eee; padding: 10px 15px; border-radius: 5px; text-decoration: none; color: #333; font-weight: bold;">
+            Read the Blog &rarr;
+        </a>
+    </p>
+</main>
+
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

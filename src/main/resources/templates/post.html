@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head-content(title=${post.title})}">
+    <title>Blog Post Details</title>
+</head>
+
+<body>
+<header th:replace="~{fragments :: header}"></header>
+
+<main>
+    <div style="margin-bottom: 2rem;">
+        <a href="/blog" style="text-decoration: none; color: #666; font-size: 0.9rem;">&larr; Back to Blog</a>
+    </div>
+
+    <article>
+        <h1 th:text="${post.title}">Post Title</h1>
+
+        <p class="post-date">
+            Published on <span th:text="${#temporals.format(post.createdAt, 'dd MMM, yyyy')}">Date</span>
+            &bull;
+            <span th:text="${post.readingTime}">2 min read</span>
+        </p>
+
+        <hr>
+
+        <div th:utext="${htmlContent}">
+            <p>Content loading...</p>
+        </div>
+
+        <div th:if="${!post.tags.empty}" style="margin-top: 3rem; border-top: 1px dashed #ddd; padding-top: 10px;">
+            <strong>Tags: </strong>
+            <span th:each="tag : ${post.tags}" style="margin-right: 10px;">
+                    <a th:href="@{'/tag/' + ${tag.name}}" style="text-decoration: none; color: #555;">
+                        #<span th:text="${tag.name}">java</span>
+                    </a>
+                </span>
+        </div>
+    </article>
+</main>
+
+<footer th:replace="~{fragments :: footer}"></footer>
+</body>
+</html>

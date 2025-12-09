@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head-content(title='Editor')}">
+    <title>Editor</title>
+</head>
+<body>
+<header>
+    <h3><a href="/admin" style="text-decoration: none;">&larr; Back to Dashboard</a></h3>
+</header>
+
+<main>
+    <form th:action="@{/admin/save}" th:object="${post}" method="post">
+        <input type="hidden" th:field="*{id}"/>
+        <input type="hidden" th:field="*{slug}"/>
+
+        <label for="title"><strong>Title</strong></label>
+        <input type="text" id="title" th:field="*{title}" required
+               style="width: 100%; font-size: 1.5rem; margin-bottom: 20px; padding: 5px;"
+               placeholder="My New Post"/>
+
+        <label for="content"><strong>Content (Markdown)</strong></label>
+        <textarea id="content" th:field="*{content}" required rows="20"
+                  style="width: 100%; font-family: monospace; font-size: 1rem; padding: 10px; margin-bottom: 20px;"
+                  placeholder="# Start writing..."></textarea>
+
+        <label for="tags"><strong>Tags</strong> <small>(Comma separated)</small></label>
+        <input type="text" id="tags" name="tagString" th:value="${tagString}"
+               style="width: 100%; font-size: 1rem; margin-bottom: 20px; padding: 5px;"
+               placeholder="java, spring boot, coding"/>
+
+        <div class="publish-box">
+            <label style="display: flex; align-items: center; cursor: pointer; user-select: none;">
+                <input type="checkbox" th:field="*{published}" style="margin-right: 10px; transform: scale(1.3);">
+                <span style="font-weight: bold;">Publish this post immediately?</span>
+                <span class="publish-hint">(Uncheck to save as Draft)</span>
+            </label>
+        </div>
+
+        <div>
+            <button type="submit" style="padding: 10px 20px; font-size: 1rem; cursor: pointer;">Save Post</button>
+        </div>
+    </form>
+</main>
+</body>
+</html>

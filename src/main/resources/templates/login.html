@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head-content(title='Login')}">
+    <title>Login</title>
+</head>
+<body style="display: flex; align-items: center; justify-content: center; min-height: 80vh;">
+
+<main style="max-width: 350px; width: 100%; text-align: center;">
+
+    <img th:src="@{/images/monster.svg}" alt="Logo" style="height: 60px; margin-bottom: 1rem;">
+
+    <h3 style="margin-top: 0;">Admin Login</h3>
+
+    <div th:if="${param.error}"
+         style="color: #721c24; background: #f8d7da; border: 1px solid #f5c6cb; padding: 10px; border-radius: 4px; margin-bottom: 15px; font-size: 0.9rem;">
+        Invalid credentials.
+    </div>
+
+    <div th:if="${param.logout}"
+         style="color: #0f5132; background: #d1e7dd; border: 1px solid #badbcc; padding: 10px; border-radius: 4px; margin-bottom: 15px; font-size: 0.9rem;">
+        Logged out.
+    </div>
+
+    <form th:action="@{/login}" method="post" style="text-align: left;">
+        <div style="margin-bottom: 15px;">
+            <label for="username" style="display: block; font-weight: bold; margin-bottom: 5px;">Username</label>
+            <input type="text" id="username" name="username" required autofocus
+                   style="width: 100%; padding: 10px; box-sizing: border-box; font-size: 16px;">
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <label for="password" style="display: block; font-weight: bold; margin-bottom: 5px;">Password</label>
+            <input type="password" id="password" name="password" required
+                   style="width: 100%; padding: 10px; box-sizing: border-box; font-size: 16px;">
+        </div>
+
+        <button type="submit" style="width: 100%; padding: 12px; font-size: 16px; cursor: pointer;">Sign In</button>
+    </form>
+
+    <p style="margin-top: 2rem;">
+        <a href="/" style="text-decoration: none; color: #666;">&larr; Back to Website</a>
+    </p>
+</main>
+
+</body>
+</html>

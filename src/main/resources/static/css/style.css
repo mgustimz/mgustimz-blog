@@ -1,0 +1,208 @@
+/* src/main/resources/static/css/style.css */
+
+/* 1. DEFINE VARIABLES (Light Mode Default) */
+:root {
+    --bg-color: #ffffff;
+    --text-main: #222222;
+    --text-muted: #666666;
+    --border-color: #333333; /* Dark border for light mode */
+    --accent-bg: #eeeeee;    /* Light gray for buttons/tags */
+    --link-color: #555555;
+    --link-hover: #000000;
+    --input-bg: #ffffff;
+    --input-border: #dddddd;
+    --button-border: #cccccc;
+}
+
+/* 2. DARK MODE OVERRIDES (The "System" Way) */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-color: #1a1a1a;     /* Deep gray background */
+        --text-main: #f0f0f0;    /* Off-white text */
+        --text-muted: #aaaaaa;   /* Light gray muted text */
+        --border-color: #444444; /* Lighter border for visibility */
+        --accent-bg: #333333;    /* Dark gray for buttons */
+        --link-color: #bbbbbb;   /* Bright gray links */
+        --link-hover: #ffffff;   /* White hover */
+        --input-bg: #222222;     /* Dark input background */
+        --input-border: #444444;
+        --button-border: #555555;
+    }
+
+    /* Force images to be slightly dimmer in dark mode (optional eye-saver) */
+    img {
+        opacity: 0.9;
+    }
+}
+
+/* 3. Global Layout & Typography */
+body {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    font-family: 'Courier New', Courier, monospace; /* Optional: Tech vibe */
+
+    /* APPLY VARIABLES */
+    background-color: var(--bg-color);
+    color: var(--text-main);
+}
+
+/* 4. Responsive Images (CRITICAL FOR BLOG POSTS) */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* 5. Header Layout (Desktop Default) */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1.5rem;
+
+    /* Variable for Border */
+    border-bottom: 2px solid var(--border-color);
+    margin-bottom: 3rem;
+}
+
+/* 6. Brand Group (Logo + Title) */
+.brand {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+
+    /* Variable */
+    color: var(--text-main);
+    gap: 15px;
+}
+.logo {
+    height: 40px; /* Restricts logo size */
+    width: auto;
+    display: block;
+}
+.brand h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+/* 7. Navigation */
+nav {
+    display: flex;
+    gap: 20px;
+}
+nav a {
+    text-decoration: none;
+    font-size: 1rem;
+
+    /* Variables */
+    color: var(--link-color);
+}
+nav a:hover {
+    text-decoration: underline;
+    color: var(--link-hover);
+}
+
+/* 8. Footer */
+footer {
+    margin-top: 5rem;
+    padding-top: 1rem;
+    font-size: 0.8rem;
+    text-align: center;
+
+    /* Variables */
+    border-top: 1px solid var(--accent-bg);
+    color: var(--text-muted);
+}
+
+/* 9. Utility Classes */
+.post-date {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+/* Ensure all links follow the theme color */
+a {
+    color: var(--text-main);
+}
+
+/* Markdown Checkbox Fixes */
+ul:has(input[type="checkbox"]) { list-style-type: none; padding-left: 0; }
+input[type="checkbox"] { margin-right: 8px; }
+
+/* --- MOBILE RESPONSIVENESS --- */
+@media (max-width: 600px) {
+    header {
+        flex-direction: column; /* Stack logo on top of menu */
+        gap: 1.5rem;
+        align-items: center; /* Center everything */
+    }
+
+    nav {
+        flex-wrap: wrap;       /* Allow menu links to wrap to next line */
+        justify-content: center;
+        gap: 15px;
+    }
+
+    /* Make Admin Table scrollable on mobile */
+    .table-container {
+        overflow-x: auto;
+        width: 100%;
+        display: block;
+    }
+}
+
+/* Search Form Styles (Now Dark Mode Ready) */
+.search-form {
+    margin-bottom: 2rem;
+    display: flex;
+    gap: 10px;
+}
+
+.search-input {
+    flex-grow: 1; /* Takes up available space */
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    font-family: inherit; /* Matches your Courier/Monospace font */
+
+    /* Variables */
+    background-color: var(--input-bg);
+    color: var(--text-main);
+    border: 1px solid var(--input-border);
+}
+
+.search-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+
+    /* Variables */
+    background: var(--accent-bg);
+    border: 1px solid var(--button-border);
+    color: var(--text-main);
+}
+
+.search-button:hover {
+    opacity: 0.8;
+}
+
+.publish-box {
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 5px;
+
+    /* Use Variables so it flips in Dark Mode */
+    background-color: var(--accent-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+}
+
+.publish-hint {
+    margin-left: auto;
+    font-size: 0.85rem;
+    /* Use muted variable */
+    color: var(--text-muted);
+}
