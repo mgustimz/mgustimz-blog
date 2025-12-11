@@ -6,7 +6,7 @@
     --text-main: #222222;
     --text-muted: #666666;
     --border-color: #333333; /* Dark border for light mode */
-    --accent-bg: #eeeeee;    /* Light gray for buttons/tags */
+    --accent-bg: #eeeeee; /* Light gray for buttons/tags */
     --link-color: #555555;
     --link-hover: #000000;
     --input-bg: #ffffff;
@@ -17,14 +17,14 @@
 /* 2. DARK MODE OVERRIDES (The "System" Way) */
 @media (prefers-color-scheme: dark) {
     :root {
-        --bg-color: #1a1a1a;     /* Deep gray background */
-        --text-main: #f0f0f0;    /* Off-white text */
-        --text-muted: #aaaaaa;   /* Light gray muted text */
+        --bg-color: #1a1a1a; /* Deep gray background */
+        --text-main: #f0f0f0; /* Off-white text */
+        --text-muted: #aaaaaa; /* Light gray muted text */
         --border-color: #444444; /* Lighter border for visibility */
-        --accent-bg: #333333;    /* Dark gray for buttons */
-        --link-color: #bbbbbb;   /* Bright gray links */
-        --link-hover: #ffffff;   /* White hover */
-        --input-bg: #222222;     /* Dark input background */
+        --accent-bg: #333333; /* Dark gray for buttons */
+        --link-color: #bbbbbb; /* Bright gray links */
+        --link-hover: #ffffff; /* White hover */
+        --input-bg: #222222; /* Dark input background */
         --input-border: #444444;
         --button-border: #555555;
     }
@@ -75,11 +75,13 @@ header {
     color: var(--text-main);
     gap: 15px;
 }
+
 .logo {
     height: 40px; /* Restricts logo size */
     width: auto;
     display: block;
 }
+
 .brand h2 {
     margin: 0;
     font-size: 1.5rem;
@@ -91,6 +93,7 @@ nav {
     display: flex;
     gap: 20px;
 }
+
 nav a {
     text-decoration: none;
     font-size: 1rem;
@@ -98,6 +101,7 @@ nav a {
     /* Variables */
     color: var(--link-color);
 }
+
 nav a:hover {
     text-decoration: underline;
     color: var(--link-hover);
@@ -126,9 +130,71 @@ a {
     color: var(--text-main);
 }
 
-/* Markdown Checkbox Fixes */
-ul:has(input[type="checkbox"]) { list-style-type: none; padding-left: 0; }
-input[type="checkbox"] { margin-right: 8px; }
+/* --- CUSTOM MARKDOWN CHECKBOXES (Aligned) --- */
+
+/* 1. Remove standard bullets */
+ul:has(input[type="checkbox"]) {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+/* 2. FLEX LAYOUT for the List Item (The Fix) */
+/* This aligns the box and the text side-by-side perfectly */
+ul li:has(input[type="checkbox"]) {
+    display: flex;
+    align-items: flex-start; /* Aligns box to top of text (good for multi-line) */
+    gap: 12px; /* Space between box and text */
+    line-height: 1.6; /* Match your body text spacing */
+    margin-bottom: 0.5rem;
+}
+
+/* 3. The Checkbox Itself */
+input[type="checkbox"] {
+    /* Stop the browser from drawing the standard grey box */
+    -webkit-appearance: none;
+    appearance: none;
+
+    /* Sizing */
+    min-width: 1.2em; /* Prevent squishing */
+    width: 1.2em;
+    height: 1.2em;
+
+    /* Alignment adjustment */
+    margin: 0;
+    margin-top: 0.25em; /* Pushes box down to align with text cap-height */
+
+    /* Styling */
+    background-color: transparent;
+    color: var(--text-main);
+    border: 2px solid currentColor;
+    border-radius: 3px;
+
+    /* Grid for the checkmark icon */
+    display: grid;
+    place-content: center;
+}
+
+/* 4. The "Checkmark" Icon */
+input[type="checkbox"]::before {
+    content: "";
+    width: 0.65em;
+    height: 0.65em;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em currentColor;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+
+/* 5. Show Checkmark when Checked */
+input[type="checkbox"]:checked::before {
+    transform: scale(1);
+}
+
+/* 6. Force Visibility */
+input[type="checkbox"]:disabled {
+    opacity: 1;
+    cursor: default;
+}
 
 /* --- MOBILE RESPONSIVENESS --- */
 @media (max-width: 600px) {
@@ -139,7 +205,7 @@ input[type="checkbox"] { margin-right: 8px; }
     }
 
     nav {
-        flex-wrap: wrap;       /* Allow menu links to wrap to next line */
+        flex-wrap: wrap; /* Allow menu links to wrap to next line */
         justify-content: center;
         gap: 15px;
     }
