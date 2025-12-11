@@ -5,11 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="${title} + ' | mgustimz'">mgustimz</title>
-
+    <link rel="icon" type="image/svg+xml" th:href="@{/images/monster.svg}">
+    <meta name="description" th:content="${metaDescription != null ? metaDescription : 'A minimalist blog about Java, Spring Boot, and Software Engineering.'}">
+    <meta name="author" content="mgustimz">
+    <link rel="canonical" th:href="@{${currentUrl}}">
+    <meta property="og:url" th:content="@{${currentUrl}}" />
     <link rel="alternate" type="application/rss+xml" title="mgustimz RSS Feed" th:href="@{/rss}"/>
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
-
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
