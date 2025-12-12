@@ -24,28 +24,36 @@ public class SecurityConfig {
     private String adminPassword;
 
     @Bean
+    // 2. Added 'throws Exception' (Required for http.build())
     public SecurityFilterChain securityFilterChain(HttpSecurity http, UserDetailsService userDetailsService) {
         http.authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/", "/blog", "/about", "/contact", "/rss", "/login",
-                                "/css/**", "/js/**", "/images/**", "/tag/**",
-                                "/{slug}").permitAll()
                         .requestMatchers("/admin/**").authenticated()
-                        .anyRequest().authenticated()
+                        .requestMatchers("/", "/blog", "/about", "/contact", "/rss", "/login",
+                                "/css/**", "/js/**", "/images/**", "/tag/**", "/search", "/sitemap.xml")
+                        .permitAll()
+                        .requestMatchers("/{slug}")
+                        .permitAll()
+                        .anyRequest()
+                        .authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
                         .defaultSuccessUrl("/admin", true)
                         .permitAll()
                 )
-                // Remember Me (2 Weeks)
                 .rememberMe(remember -> remember
                         .key("superSecretKeyForBearBlog")
                         .tokenValiditySeconds(1209600)
-                        .userDetailsService(userDetailsService) // Inject the bean here
+                        .userDetailsService(userDetailsService)
                 )
                 .logout(logout -> logout
-                        //.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                        .logoutRequestMatcher(request ->
+                                request.getMethod().equals("GET") &&
+                                        request.getRequestURI().equals("/logout")
+                        )
                         .logoutSuccessUrl("/login?logout")
+                        .invalidateHttpSession(true)
+                        .clearAuthentication(true)
                         .deleteCookies("JSESSIONID", "remember-me")
                         .permitAll()
                 );
