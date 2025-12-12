@@ -9,7 +9,8 @@
 
 <main>
     <div style="margin-bottom: 2rem;">
-        <a href="/blog" style="text-decoration: none; color: #666; font-size: 0.9rem;">&larr; Back to Blog</a>
+        <a href="/blog" style="text-decoration: none; color: var(--text-muted); font-size: 0.9rem;">&larr; Back to
+            Blog</a>
     </div>
 
     <article>
@@ -27,10 +28,17 @@
             <p>Content loading...</p>
         </div>
 
-        <div th:if="${!post.tags.empty}" style="margin-top: 3rem; border-top: 1px dashed #ddd; padding-top: 10px;">
+        <div class="share-section">
+            <button onclick="copyLink()" class="copy-btn" id="shareBtn" title="Copy article URL">
+                <span id="btnIcon">🔗</span>
+                <span id="btnText">Copy Link</span>
+            </button>
+        </div>
+
+        <div th:if="${!post.tags.empty}" style="margin-top: 1.5rem; padding-top: 10px;">
             <strong>Tags: </strong>
             <span th:each="tag : ${post.tags}" style="margin-right: 10px;">
-                    <a th:href="@{'/tag/' + ${tag.name}}" style="text-decoration: none; color: #555;">
+                    <a th:href="@{'/tag/' + ${tag.name}}" style="text-decoration: none; color: var(--link-color);">
                         #<span th:text="${tag.name}">java</span>
                     </a>
                 </span>
@@ -39,5 +47,32 @@
 </main>
 
 <footer th:replace="~{fragments :: footer}"></footer>
+
+<script>
+    function copyLink() {
+        // 1. Copy URL to clipboard
+        navigator.clipboard.writeText(globalThis.location.href).then(() => {
+
+            // 2. Visual Feedback
+            const btnText = document.getElementById('btnText');
+            const btnIcon = document.getElementById('btnIcon');
+
+            const originalText = btnText.innerText;
+            const originalIcon = btnIcon.innerText;
+
+            btnText.innerText = 'Copied!';
+            btnIcon.innerText = '✅';
+
+            // 3. Reset after 2 seconds
+            setTimeout(() => {
+                btnText.innerText = originalText;
+                btnIcon.innerText = originalIcon;
+            }, 2000);
+        }).catch(err => {
+            console.error('Failed to copy: ', err);
+        });
+    }
+</script>
+
 </body>
 </html>
