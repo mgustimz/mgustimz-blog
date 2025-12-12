@@ -160,8 +160,8 @@ input[type="checkbox"] {
     height: 1.2em;
 
     /* Alignment adjustment */
-    margin: 0;
-    margin-top: 0.25em; /* Pushes box down to align with text cap-height */
+    /* Pushes box down to align with text cap-height */
+    margin: 0.25em 0 0;
 
     /* Styling */
     background-color: transparent;
