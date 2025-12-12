@@ -12,7 +12,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-//import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -25,12 +24,12 @@ public class SecurityConfig {
     private String adminPassword;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, UserDetailsService userDetailsService) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, UserDetailsService userDetailsService) {
         http.authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/admin/**").authenticated()
                         .requestMatchers("/", "/blog", "/about", "/contact", "/rss", "/login",
-                                "/css/**", "/js/**", "/images/**").permitAll()
-                        .requestMatchers("/{slug}").permitAll()
+                                "/css/**", "/js/**", "/images/**", "/tag/**",
+                                "/{slug}").permitAll()
+                        .requestMatchers("/admin/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
